@@ -88,6 +88,52 @@
   .start-btn{margin-top:18px}
 
   /* ---------- quiz screen ---------- */
+  /* ---------- menu ---------- */
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  .menu-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:6px;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px;
+    cursor:pointer;box-shadow:var(--shadow);transition:.15s;font-family:inherit;position:relative;overflow:hidden}
+  .menu-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+  .menu-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--yellow)}
+  .menu-card.blue::after{background:var(--blue)}
+  .mc-ico{font-size:30px}
+  .mc-t{font-family:"Space Grotesk";font-weight:700;font-size:20px}
+  .mc-d{color:var(--muted);font-size:13px;line-height:1.45}
+  @media(max-width:480px){.menu-grid{grid-template-columns:1fr}}
+
+  /* ---------- theory ---------- */
+  .tsearch{width:100%;margin:14px 0;padding:13px 15px;border:1.5px solid var(--line);
+    border-radius:12px;font-family:inherit;font-size:15px;background:#fff}
+  .tsearch:focus{outline:none;border-color:var(--blue)}
+  .acc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;
+    overflow:hidden;box-shadow:0 4px 14px rgba(18,22,29,.05)}
+  .acc-h{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+    background:#fff;border:none;cursor:pointer;font-family:"Space Grotesk";font-weight:600;
+    font-size:15.5px;color:var(--ink);padding:16px 18px;text-align:left}
+  .acc-h:hover{background:#fafcff}
+  .acc-h .n{flex:none;width:26px;height:26px;border-radius:7px;background:var(--asphalt);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;margin-right:4px}
+  .acc-h .arw{flex:none;color:var(--muted);transition:.2s;font-size:13px}
+  .acc.open .acc-h .arw{transform:rotate(90deg)}
+  .acc-b{display:none;padding:4px 18px 16px}
+  .acc.open .acc-b{display:block}
+  .fact{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+  .fact:last-child{border-bottom:none}
+  .fact .lbl{color:#33404f}
+  .fact .val{flex:none;font-family:"Space Grotesk";font-weight:600;color:var(--blue-d);
+    background:#fff6cf;padding:1px 9px;border-radius:6px;white-space:nowrap;align-self:flex-start}
+  .fact .val.plain{background:none;color:var(--muted);font-weight:500}
+  .ttable{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+  .ttable th,.ttable td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  .ttable th{background:var(--asphalt);color:#fff;font-family:"Space Grotesk";font-weight:600;font-size:12.5px}
+  .ttable td.c{text-align:center;font-family:"Space Grotesk";font-weight:600;color:var(--blue-d)}
+  .ttable tr:nth-child(even) td{background:#f7f9fc}
+  .nores{color:var(--muted);text-align:center;padding:24px;font-size:14px}
+
+  .exit-btn{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid var(--line);
+    color:var(--muted);font-family:"Space Grotesk";font-weight:600;font-size:13px;
+    padding:8px 13px;border-radius:999px;cursor:pointer;margin-bottom:12px;transition:.15s}
+  .exit-btn:hover{border-color:var(--blue);color:var(--blue-d)}
   .qbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
   .counter{font-family:"Space Grotesk";font-weight:600;font-size:15px}
   .counter b{color:var(--blue);font-size:20px}
@@ -170,10 +216,42 @@
     <small>Yo'l harakati qoidalari — nazariy imtihon</small>
   </div>
 
-  <!-- ============ START ============ -->
-  <section id="start">
+  <!-- ============ MENU ============ -->
+  <section id="menu">
     <div class="hero">
-      <h1>Avtomaktab nazariy testi</h1>
+      <h1>Yo'l harakati qoidalari</h1>
+      <p>Avval nazariyani o'qing, so'ng bilimingizni test bilan sinang.</p>
+    </div>
+    <div class="menu-grid">
+      <button class="menu-card" id="goTheory">
+        <span class="mc-ico">📘</span>
+        <span class="mc-t">Nazariya</span>
+        <span class="mc-d">Barcha mavzular, masofalar, o'lchamlar va atamalarning to'liq ma'lumoti</span>
+      </button>
+      <button class="menu-card blue" id="goTest">
+        <span class="mc-ico">📝</span>
+        <span class="mc-t">Test</span>
+        <span class="mc-d">Random savollar, vaqt hisoblagichi va oxirida to'liq natija</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ THEORY ============ -->
+  <section id="theory" class="hidden">
+    <button class="exit-btn" id="theoryBack">⌂ Asosiy menyu</button>
+    <div class="hero" style="padding:20px 22px">
+      <h1 style="font-size:22px">Nazariya — to'liq ma'lumot</h1>
+      <p>Bo'lim ustiga bosing — ochiladi. Muhim raqamlar sariq bilan ajratilgan.</p>
+    </div>
+    <input id="theorySearch" class="tsearch" placeholder="🔍 Qidirish (masalan: shatak, 300, imtiyoz...)">
+    <div id="theoryBody"></div>
+  </section>
+
+  <!-- ============ START (test setup) ============ -->
+  <section id="start" class="hidden">
+    <button class="exit-btn" id="startBack">⌂ Asosiy menyu</button>
+    <div class="hero">
+      <h1>Test sozlamalari</h1>
       <p>Mavzuni tanlang, savollar va javoblar har safar aralashtiriladi. Oxirida to'liq natija ko'rsatiladi.</p>
     </div>
 
@@ -191,6 +269,7 @@
 
   <!-- ============ QUIZ ============ -->
   <section id="quiz" class="hidden">
+    <button class="exit-btn" id="exitBtn">⌂ Asosiy menyu</button>
     <div class="qbar">
       <div class="counter">Savol <b id="qNow">1</b> / <span id="qTot">20</span></div>
       <div class="timer" id="timer">25:00</div>
@@ -412,9 +491,7 @@ function startQuiz(){
   }));
   state={ list:picked, i:0, chosen:new Array(picked.length).fill(null),
           total:picked.length, timeLeft:picked.length*60, started:Date.now() };
-  $("#start").classList.add("hidden");
-  $("#result").classList.add("hidden");
-  $("#quiz").classList.remove("hidden");
+  show("quiz");
   $("#qTot").textContent=state.total;
   buildPalette();
   renderQ();
@@ -493,8 +570,7 @@ function finish(){
   const pct=Math.round(ok/total*100);
   const pass=pct>=PASS_PCT;
 
-  $("#quiz").classList.add("hidden");
-  $("#result").classList.remove("hidden");
+  show("result");
 
   const v=$("#verdict");
   v.textContent = pass ? "✓ O'TDINGIZ" : "✕ O'TOLMADINGIZ";
@@ -534,12 +610,196 @@ function finish(){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-$("#startBtn").onclick=startQuiz;
-$("#againBtn").onclick=()=>{
-  $("#result").classList.add("hidden");
-  $("#start").classList.remove("hidden");
+/* ================= NAVIGATION ================= */
+const SECTIONS=["menu","theory","start","quiz","result"];
+function show(id){
+  SECTIONS.forEach(s=>$("#"+s).classList.toggle("hidden",s!==id));
   window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ================= THEORY DATA ================= */
+const THEORY=[
+  {t:"Tezlik chegaralari", table:{
+    head:["Transport turi","Aholi punktida","Tashqarida"],
+    rows:[
+      ["Yengil avtomobillar","60","100"],
+      ["Yuk avtomobillari (3,5 tonnagacha)","60","100"],
+      ["Shaharlararo avtobus va mikroavtobuslar","60","90"],
+      ["Boshqa avtobuslar va mototsikllar","60","80"],
+      ["Yuk avtomobillari (3,5 tonnadan ortiq)","60","80"],
+      ["Tirkamali avtomobillar (yengil va yuk)","60","70"],
+      ["Shatakka olish (mashina tortishda)","50","50"],
+      ["Turar joy zonalari va hovlilar ichi","20","—"]
+    ]},
+    facts:[["Maktab va bog'cha hududi","30 km/soat"]]},
+
+  {t:"To'xtash taqiqlangan masofalar", facts:[
+    ["Kesishmagacha va kesishmadan keyin","30 metr"],
+    ["Piyodalar o'tish joyigacha","10 metr"],
+    ["Piyodalar o'tish joyidan keyin","1 metr"],
+    ["Bekat maydonchasi va undan keyin","15 metr"],
+    ["Qayrilib olish joyida, unga yetmasdan va keyin","taqiqlanadi|plain"],
+    ["Uzluksiz chiziq bilan to'xtagan transport orasi","3 metr"]
+  ]},
+
+  {t:"Shatakka olish (buksir)", facts:[
+    ["Qattiq ulagichda","4 metr"],
+    ["Egiluvchan ulagichda","4–6 metr"],
+    ["Egiluvchan ulagich belgilanishi","kamida 2 ta bayroqcha|plain"],
+    ["Shatakka olishda umumiy uzunlik","20 metr"]
+  ]},
+
+  {t:"Transport vositasi o'lchamlari", facts:[
+    ["Maksimal kenglik","2,55 metr"],
+    ["Maksimal balandlik","4 metr"],
+    ["Tirkama bilan umumiy uzunlik","20 metr"],
+    ["Yuk orqa nuqtadan chiqib turishi","2 metr"],
+    ["Belgilanishi kerak (orqa nuqtadan)","1 metrdan ko'p|plain"]
+  ]},
+
+  {t:"Yengil avtoda yuk va gabarit", facts:[
+    ["Yon tomonga gabaritdan","0,5 metr"],
+    ["Yuk balandligi","1 metr"],
+    ["Belgilanishi kerak (gabaritdan)","0,4 metrdan ko'p|plain"],
+    ["Velosiped va moped gabaritidan","0,5 metr"]
+  ]},
+
+  {t:"Yuk avtomobilida odam tashish", facts:[
+    ["Bort balandligi","1,3 metr"],
+    ["O'rindiqlar balandligi","0,3–0,5 metr"]
+  ]},
+
+  {t:"Belgi o'rnatish masofalari", facts:[
+    ["Falokat to'xtash belgisi — aholi punktida","15 metr"],
+    ["Falokat to'xtash belgisi — tashqarida","30 metr"],
+    ["Ogohlantiruvchi belgilar — aholi punktida","50–100 metr"],
+    ["Ogohlantiruvchi belgilar — tashqarida","150–300 metr"]
+  ]},
+
+  {t:"Temir yo'l kesishmasi", facts:[
+    ["Quvib o'tish taqiqlanadi","100 metr"],
+    ["To'xtab turish taqiqlanadi","50 metr"],
+    ["Birinchi relsgacha (izigacha)","10 metr"],
+    ["Shlagbaumgacha","5 metr"]
+  ]},
+
+  {t:"Tezlik → to'xtash masofasi", facts:[
+    ["72 km/soat","20 metr"],
+    ["90 km/soat","25 metr"],
+    ["108 km/soat","30 metr"]
+  ]},
+
+  {t:"Shina naqshi va rul lyufti", facts:[
+    ["Shina — Mototsikl (L)","0,8 mm"],
+    ["Shina — N2/N3/O3/O4","1 mm"],
+    ["Shina — M1/N1/O1/O2","1,6 mm"],
+    ["Shina — M2/M3","2 mm"],
+    ["Rul lyufti — M1 (yengil avto)","10°"],
+    ["Rul lyufti — M2/M3/N1","20°"],
+    ["Rul lyufti — N2/N3","25°"]
+  ]},
+
+  {t:"Boshqa muhim raqamlar", facts:[
+    ["Reaksiya vaqti","1 sekund"],
+    ["Yo'l belgilari guruhlari","7 ta"],
+    ["Umumiy xatar (halokat) ishorasi","1 uzun + 3 qisqa|plain"],
+    ["Yetarlicha ko'rinmaslik","300 metr"],
+    ["To'xtab turish tormozi qiyalikda — N","31 %"],
+    ["To'xtab turish tormozi qiyalikda — M","25 %"],
+    ["Pnevmatik uzatma zichligi","0,05 MPa"],
+    ["Distansiya boshlig'i ruxsat so'rash","8 km/soat"]
+  ]},
+
+  {t:"Atamalar — nima nimaligi", facts:[
+    ["O'zib ketish","Ortiq (yuqori) tezlikda harakatlanish|plain"],
+    ["Quvib o'tish","Qarama-qarshi yo'nalishga chiqib o'tish|plain"],
+    ["Imtiyoz","Oldin harakatlanish huquqi|plain"],
+    ["Mexanik transport vositasi","Mopeddan tashqari barcha|plain"],
+    ["To'siq","Harakatsiz holatdagi jism|plain"],
+    ["Xavf","Haqiqiy xavf-xatar|plain"],
+    ["Chorraha","Yo'llar bir sathda kesishgan joy|plain"],
+    ["Yo'l-transport hodisasi","Moddiy zarar yetkazilishi|plain"],
+    ["Asosiy yo'l","Tuproqli yo'lga nisbatan asosiy|plain"],
+    ["Aholi punkti","5.22–5.24 yo'l belgilari (5.22 — oq belgi)|plain"],
+    ["Piyodalar o'tish joyi","5.16.1 / 5.16.2 belgilari|plain"],
+    ["Qatnov qismi","Relssiz transport vositasi (1-javob)|plain"],
+    ["Harakatlanish tasmasi","Bo'ylama bo'lak|plain"],
+    ["Qayta tizilish","Boshqa harakatlanish qatoriga o'tish|plain"],
+    ["Majburiy to'xtash","Texnik nuqson (nosozlik) tufayli|plain"],
+    ["Oq-qizil zebra","Maktab / bog'cha|plain"],
+    ["Ruxsat etilgan to'la vazn","Ishlab chiqargan korxona belgilaydi|plain"],
+    ["Yo'l harakati ishtirokchilari","Haydovchi, yo'lovchi, piyoda|plain"],
+    ["Yo'l harakati xavfsizligi","Oqibatlaridan himoyalanganlik darajasi|plain"],
+    ["Navbatchi (regulirovchi)","Oldi / orqasi bilan bildiradi|plain"],
+    ["Piyodalar qatnov qismi chetidan","Qarama-qarshi yurish|plain"]
+  ]}
+];
+
+function factRow(f){
+  const [lbl, raw]=f;
+  const plain=raw.endsWith("|plain");
+  const val=plain?raw.slice(0,-6):raw;
+  return `<div class="fact" data-txt="${(lbl+' '+val).toLowerCase()}">
+    <span class="lbl">${lbl}</span><span class="val${plain?' plain':''}">${val}</span></div>`;
+}
+function buildTheory(){
+  const body=$("#theoryBody");
+  body.innerHTML=THEORY.map((sec,i)=>{
+    let inner="";
+    if(sec.table){
+      inner+=`<table class="ttable"><tr>${sec.table.head.map(h=>`<th>${h}</th>`).join("")}</tr>`+
+        sec.table.rows.map(r=>`<tr data-txt="${r.join(' ').toLowerCase()}"><td>${r[0]}</td><td class="c">${r[1]}</td><td class="c">${r[2]}</td></tr>`).join("")+`</table>`;
+    }
+    if(sec.facts) inner+=sec.facts.map(factRow).join("");
+    return `<div class="acc" data-sec="${sec.t.toLowerCase()}">
+      <button class="acc-h"><span><span class="n">${i+1}</span>${sec.t}</span><span class="arw">▶</span></button>
+      <div class="acc-b">${inner}</div></div>`;
+  }).join("");
+  body.querySelectorAll(".acc-h").forEach(h=>{
+    h.onclick=()=>h.parentElement.classList.toggle("open");
+  });
+}
+$("#theorySearch").addEventListener("input",e=>{
+  const q=e.target.value.trim().toLowerCase();
+  const accs=$("#theoryBody").querySelectorAll(".acc");
+  let anyVisible=false;
+  accs.forEach(acc=>{
+    const rows=acc.querySelectorAll(".fact,.ttable tr[data-txt]");
+    let hit=!q;
+    if(q){
+      const secMatch=acc.dataset.sec.includes(q);
+      rows.forEach(r=>{
+        const m=secMatch||(r.dataset.txt||"").includes(q);
+        r.style.display=m?"":"none";
+        if(m)hit=true;
+      });
+      if(secMatch) rows.forEach(r=>r.style.display="");
+    }else{
+      rows.forEach(r=>r.style.display="");
+    }
+    acc.style.display=hit?"":"none";
+    acc.classList.toggle("open",!!q&&hit);
+    if(hit)anyVisible=true;
+  });
+  let nr=$("#noRes");
+  if(!anyVisible){ if(!nr){nr=document.createElement("div");nr.id="noRes";nr.className="nores";nr.textContent="Hech narsa topilmadi.";$("#theoryBody").appendChild(nr);} }
+  else if(nr){nr.remove();}
+});
+
+/* ================= WIRING ================= */
+$("#goTheory").onclick=()=>show("theory");
+$("#goTest").onclick=()=>show("start");
+$("#theoryBack").onclick=()=>show("menu");
+$("#startBack").onclick=()=>show("menu");
+
+$("#exitBtn").onclick=()=>{
+  const answered = state ? state.chosen.some(x=>x!==null) : false;
+  if(answered && !confirm("Asosiy menyuga chiqasizmi? Joriy test natijasi saqlanmaydi."))return;
+  clearInterval(timerId); state=null; show("menu");
 };
+$("#startBtn").onclick=startQuiz;
+$("#againBtn").onclick=()=>show("menu");
 
 buildStart();
+buildTheory();
 </script>
